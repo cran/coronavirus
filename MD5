@@ -1,0 +1,11 @@
+2824350b61bd18e11fce07d4c298a6b2 *DESCRIPTION
+0e0cb2e21db63dd20f34cc7a5d0b8e29 *LICENSE
+dc21c19f0d6968ee25d441b2cf46017d *NAMESPACE
+dcb6435474c7cb295729488fac5db306 *NEWS.md
+d0cf719f2970abcf06b5b7c44046b477 *R/data.R
+54d77ea0db3a05aa1b4fe5dab29c7a88 *README.md
+d2daa7fbe1f7938bfd05c7e6ec2cea63 *data/coronavirus.rda
+175a78e92c22316de8b9c7a3ed526f15 *man/coronavirus.Rd
+9db2bf079037685badfeebc8108c35eb *man/figures/2019-nCoV-CDC-23312_without_background.png
+75041eb853f6bb1f9ae50b95828836f4 *tests/testthat.R
+e708eefa3ce2c221dde37486b82d2643 *tests/testthat/test-data_valid.R
