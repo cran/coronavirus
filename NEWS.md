@@ -1,3 +1,10 @@
+# coronavirus 0.3.0
+
+* Added the `refresh_coronavirus_jhu` function for pulling the `coronavirus` dataset using the covid19R project format
+* Created docker image for development environment and cron job, more info available [here](https://github.com/RamiKrispin/coronavirus/tree/master/docker)
+* Updated the `update_dataset` function
+
+
 # coronavirus 0.2.0
 
 * Data changes:

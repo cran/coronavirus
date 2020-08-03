@@ -13,7 +13,7 @@
 
 
 
-<title>Update the coronavirus Dataset</title>
+<title>Covid19R Project Data Format</title>
 
 
 
@@ -301,55 +301,41 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 
-<h1 class="title toc-ignore">Update the coronavirus Dataset</h1>
+<h1 class="title toc-ignore">Covid19R Project Data Format</h1>
 
 
 
-<p>While the CRAN version of the package is updated once every month or two, the Github (Dev) version is updating on a daily bases. The following options allow you to keep the data updated with the ones available on the Dev version:</p>
+<p>The <code>refresh_coronavirus_jhu</code> function enables to pull the <code>coronavirus</code> dataset using the <a href="https://covid19r.github.io/documentation/">Covid19R</a> project <a href="https://covid19r.github.io/documentation/data-format-standard.html">data format standard</a>. This data format includes the following fields:</p>
 <ul>
-<li>Use the <code>update_dataset</code> function</li>
-<li>Read directly from the package repo a csv format of the data</li>
+<li><code>date</code> - The date of the observation, using <code>Date</code> class</li>
+<li><code>location</code> - The name of the location as provided by John Hopkins raw data</li>
+<li><code>location_type</code> - The type of the location field, either <code>country</code> or <code>state</code></li>
+<li><code>location_code</code> - The location code, using the <code>ios_3166_2</code> format</li>
+<li><code>location_code_type</code> - The location code type (<code>ios_3166_2</code>)</li>
+<li><code>data_type</code> - The case type, <code>c(&quot;recovered_new&quot;, &quot;cases_new&quot;, &quot;deaths_new&quot; )</code></li>
+<li><code>value</code> - The number of cases</li>
+<li><code>lat</code> - The latitude code</li>
+<li><code>long</code> - The longitude code</li>
 </ul>
-<div id="the-update_dataset-function" class="section level3">
-<h3>The update_dataset function</h3>
-<p>The <code>update_dataset</code> function enables to keep the installed version updated with the data available on <a href="https://github.com/RamiKrispin/coronavirus">Github</a>. The function compared between the dataset on the installed version and the ones on the Dev version:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(coronavirus)</span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">update_dataset</span>()</span></code></pre></div>
-<p>If no new data is available on the Dev version, the function will return the following message:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>No updates are available</span></code></pre></div>
-<p>Once new data is available, the function will prompt the following question that enables the user to select whether to install the updates from the dev version:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>Updates are available on the coronavirus Dev version, do you want to update? n<span class="op">/</span>Y</span></code></pre></div>
-<p>In order to make the new data available, you will have to restart your R session.</p>
-<p><strong>Note:</strong> As frequent changes may occur on the raw data structure (such as new fields, retroactive updates in the data, etc.), the Dev version dataset may change accordingly.</p>
-</div>
-<div id="reading-the-data-from-csv-version" class="section level3">
-<h3>Reading the data from CSV version</h3>
-<p>Alternatively, you can read and load the data directly from the package repository, using the csv version:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>coronavirus_df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv&quot;</span>,</span>
-<span id="cb4-2"><a href="#cb4-2"></a>                     <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb4-3"><a href="#cb4-3"></a></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">head</span>(coronavirus_df)</span></code></pre></div>
-<pre><code>##         date province     country      lat     long      type cases
-## 1 2020-01-22          Afghanistan 33.93911 67.70995 confirmed     0
-## 2 2020-01-23          Afghanistan 33.93911 67.70995 confirmed     0
-## 3 2020-01-24          Afghanistan 33.93911 67.70995 confirmed     0
-## 4 2020-01-25          Afghanistan 33.93911 67.70995 confirmed     0
-## 5 2020-01-26          Afghanistan 33.93911 67.70995 confirmed     0
-## 6 2020-01-27          Afghanistan 33.93911 67.70995 confirmed     0</code></pre>
-<p>The main difference between the first method (the <code>update_dataset</code> function) and the second method (reading a CSV format of the data) is that the date field on the last method is not formated as a <code>Date</code> object. A quick reformating can fix it:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>coronavirus_df<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(coronavirus_df<span class="op">$</span>date)</span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">str</span>(coronavirus_df)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    151505 obs. of  7 variables:
-##  $ date    : Date, format: &quot;2020-01-22&quot; &quot;2020-01-23&quot; ...
-##  $ province: chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
-##  $ country : chr  &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; ...
-##  $ lat     : num  33.9 33.9 33.9 33.9 33.9 ...
-##  $ long    : num  67.7 67.7 67.7 67.7 67.7 ...
-##  $ type    : chr  &quot;confirmed&quot; &quot;confirmed&quot; &quot;confirmed&quot; &quot;confirmed&quot; ...
-##  $ cases   : int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
-</div>
+<span id="cb1-3"><a href="#cb1-3"></a>covid19_df &lt;-<span class="st"> </span><span class="kw">refresh_coronavirus_jhu</span>()</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">head</span>(covid19_df)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;         date    location location_type location_code location_code_type</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; 1 2020-07-26 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 2 2020-05-17 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 3 2020-07-26 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 4 2020-04-28 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; 5 2020-04-24 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; 6 2020-04-25 Afghanistan       country            AF         iso_3166_2</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt;       data_type value      lat     long</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; 1 recovered_new   387 33.93911 67.70995</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; 2     cases_new   262 33.93911 67.70995</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; 3    deaths_new    11 33.93911 67.70995</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt; 4     cases_new   125 33.93911 67.70995</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt; 5     cases_new    72 33.93911 67.70995</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; 6     cases_new   112 33.93911 67.70995</span></span></code></pre></div>
 
 
 
