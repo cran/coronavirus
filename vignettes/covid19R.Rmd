@@ -35,4 +35,3 @@ covid19_df <- refresh_coronavirus_jhu()
 
 head(covid19_df)
 ```
-

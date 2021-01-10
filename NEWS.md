@@ -1,3 +1,10 @@
+# coronavirus 0.3.1
+
+* Data is up-to-date up to Jan 9th 2021
+* Added docker framework for the package dashboard 
+* Updated the data refresh function and docker image
+* Fixed CRAN warnings
+
 # coronavirus 0.3.0
 
 * Added the `refresh_coronavirus_jhu` function for pulling the `coronavirus` dataset using the covid19R project format

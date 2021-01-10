@@ -37,7 +37,7 @@ refresh_coronavirus_jhu <- function(){
     # Fixes before merging in codes
     df$location <- gsub("Korea, South", "South Korea",  df$location)
     df$location <- gsub("Bonaire, Sint Eustatius and Saba",
-              "Bonaire and Sint Eustatius and Saba",  df$location)
+                        "Bonaire and Sint Eustatius and Saba",  df$location)
     df$location <- gsub("^\\, ", "",  df$location )
 
     #get code table
@@ -45,7 +45,7 @@ refresh_coronavirus_jhu <- function(){
 
     # left join codes in
     df <- base::merge(df, iso_3166_2_code_table,
-                       all.x = TRUE, by = "location")
+                      all.x = TRUE, by = "location")
 
     #    df$location_code <- paste(df$lat, df$long, sep = ", ")
     #    df$location_code_type <- "latitude, longitude"
@@ -59,8 +59,8 @@ refresh_coronavirus_jhu <- function(){
     df$province <- df$country <- df$type <- df$cases <-  NULL
 
     col_order <- c( "date", "location", "location_type",
-                   "location_code", "location_code_type", "data_type",
-                   "value", "lat", "long")
+                    "location_code", "location_code_type", "data_type",
+                    "value", "lat", "long")
     df$date <- as.Date(df$date)
 
     return(df[,col_order])
@@ -97,4 +97,3 @@ get_info_coronavirus <- function(){
     has_geospatial_info = TRUE
   )
 }
-
