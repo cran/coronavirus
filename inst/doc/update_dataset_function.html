@@ -384,29 +384,28 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="reading-the-data-from-csv-version" class="section level3">
 <h3>Reading the data from CSV version</h3>
 <p>Alternatively, you can read and load the data directly from the package repository, using the csv version:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>coronavirus_df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv&quot;</span>,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coronavirus_df)</span></code></pre></div>
-<pre><code>##         date province     country      lat     long      type cases
-## 1 2020-01-22          Afghanistan 33.93911 67.70995 confirmed     0
-## 2 2020-01-23          Afghanistan 33.93911 67.70995 confirmed     0
-## 3 2020-01-24          Afghanistan 33.93911 67.70995 confirmed     0
-## 4 2020-01-25          Afghanistan 33.93911 67.70995 confirmed     0
-## 5 2020-01-26          Afghanistan 33.93911 67.70995 confirmed     0
-## 6 2020-01-27          Afghanistan 33.93911 67.70995 confirmed     0</code></pre>
-<p>The main difference between the first method (the <code>update_dataset</code> function) and the second method (reading a CSV format of the data) is that the date field on the last method is not formated as a <code>Date</code> object. A quick reformating can fix it:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>coronavirus_df<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(coronavirus_df<span class="sc">$</span>date)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(coronavirus_df)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    283554 obs. of  7 variables:
-##  $ date    : Date, format: &quot;2020-01-22&quot; &quot;2020-01-23&quot; ...
-##  $ province: chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
-##  $ country : chr  &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; ...
-##  $ lat     : num  33.9 33.9 33.9 33.9 33.9 ...
-##  $ long    : num  67.7 67.7 67.7 67.7 67.7 ...
-##  $ type    : chr  &quot;confirmed&quot; &quot;confirmed&quot; &quot;confirmed&quot; &quot;confirmed&quot; ...
-##  $ cases   : int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>coronavirus_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   date = col_date(format = &quot;&quot;),
+##   province = col_character(),
+##   country = col_character(),
+##   lat = col_double(),
+##   long = col_double(),
+##   type = col_character(),
+##   cases = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coronavirus_df)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 7
+##   date       province country               lat   long type      cases
+##   &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;               &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+## 1 2020-01-22 &lt;NA&gt;     Afghanistan          33.9  67.7  confirmed     0
+## 2 2020-01-22 &lt;NA&gt;     Albania              41.2  20.2  confirmed     0
+## 3 2020-01-22 &lt;NA&gt;     Algeria              28.0   1.66 confirmed     0
+## 4 2020-01-22 &lt;NA&gt;     Andorra              42.5   1.52 confirmed     0
+## 5 2020-01-22 &lt;NA&gt;     Angola              -11.2  17.9  confirmed     0
+## 6 2020-01-22 &lt;NA&gt;     Antigua and Barbuda  17.1 -61.8  confirmed     0</code></pre>
 </div>
 
 

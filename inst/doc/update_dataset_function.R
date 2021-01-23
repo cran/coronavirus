@@ -1,11 +1,6 @@
 ## -----------------------------------------------------------------------------
-coronavirus_df <- read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv",
-                     stringsAsFactors = FALSE)
+library(readr)
+coronavirus_df <- read_csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/master/csv/coronavirus.csv")
 
 head(coronavirus_df)
-
-## -----------------------------------------------------------------------------
-coronavirus_df$date <- as.Date(coronavirus_df$date)
-
-str(coronavirus_df)
 
