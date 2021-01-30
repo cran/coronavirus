@@ -1,13 +1,13 @@
-2f4c583a586c917faad2d2bf1919f616 *DESCRIPTION
+c8769bacd5c8a1ade56ac8d912e581c0 *DESCRIPTION
 0e0cb2e21db63dd20f34cc7a5d0b8e29 *LICENSE
 4af1cbe58a89294d7aa57a4c725ca848 *NAMESPACE
-77b48bb7c783a3e96779dac5dd5ce87a *NEWS.md
+708745a8f830869232977fb3bae3a756 *NEWS.md
 8fdfbd1fde7b8057bf48f5a8f2b9a0d5 *R/data.R
 77eab2a99f2649e78f1555a7c0d016f1 *R/data_refresh.R
-89d72f8f49d25a2029fddbd79f1b47b5 *R/refresh_coronvirus.R
+54c5cb9e64c7558991e567071c4c1890 *R/refresh_coronvirus.R
 534b99f09551adcfee7351f3291b512b *README.md
 ec697e0179e4b71da824a7d64b91c0b2 *build/vignette.rds
-4eade3c4715fe571af7433b8f842f76e *data/coronavirus.rda
+b23efe4f69e8e6c2ddf5d4f1e7c8b06c *data/coronavirus.rda
 3c9e2d06e8560272e30c98b0c827478b *inst/doc/covid19R.R
 52268e3858fcb1172dea67928a16cddf *inst/doc/covid19R.Rmd
 8c9df1fcc4100ca946f08e72974c3848 *inst/doc/covid19R.html
