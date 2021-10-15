@@ -5,7 +5,9 @@
 
 <!-- badges: start --->
 
-[![build](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions?query=workflow%3Abuild)
+[![R-CMD](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/main.yml)
+[![Data
+Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![License:
@@ -95,18 +97,27 @@ The package provides the following two datasets:
     That includes the following columns:
 
     -   `date` - The date of the observation, using `Date` class
-    -   `location` - The name of the location as provided by John
-        Hopkins raw data
-    -   `location_type` - The type of the location field, either
-        `country` or `state`
-    -   `location_code` - The location code, using the `ios_3166_2`
-        format
-    -   `location_code_type` - The location code type (`ios_3166_2`)
-    -   `data_type` - The case type,
-        `c("recovered_new", "cases_new", "deaths_new" )`
-    -   `value` - The number of cases
+    -   `province` - Name of province/state, for countries where data is
+        provided split across multiple provinces/states
+    -   `country` - Name of country/region
     -   `lat` - The latitude code
     -   `long` - The longitude code
+    -   `type` - An indicator for the type of cases (confirmed, death,
+        recovered)
+    -   `cases` - Number of cases on given date
+    -   `uid` - Country code
+    -   `province_state` - Province or state if applicable
+    -   `iso2` - Officially assigned country code identifiers with
+        two-letter
+    -   `iso3` - Officially assigned country code identifiers with
+        three-letter
+    -   `code3` - UN country code
+    -   `fips` - Federal Information Processing Standards code that
+        uniquely identifies counties within the USA
+    -   `combined_key` - Country and province (if applicable)
+    -   `population` - Country or province population
+    -   `continent_name` - Continent name
+    -   `continent_code` - Continent code
 
 -   **covid19\_vaccine** - a tidy (long) format of the the Johns Hopkins
     [Centers for Civic Impact](https://civicimpact.jhu.edu/) global
@@ -168,13 +179,13 @@ with the `refresh_coronavirus_jhu` function:
 ``` r
 covid19_df <- refresh_coronavirus_jhu()
 head(covid19_df)
-#>         date    location location_type location_code location_code_type     data_type value      lat      long
-#> 1 2020-11-22 Afghanistan       country            AF         iso_3166_2 recovered_new   512 33.93911 67.709953
-#> 2 2020-08-19 Afghanistan       country            AF         iso_3166_2 recovered_new     0 33.93911 67.709953
-#> 3 2021-06-24 Afghanistan       country            AF         iso_3166_2    deaths_new    86 33.93911 67.709953
-#> 4 2020-08-20 Afghanistan       country            AF         iso_3166_2 recovered_new   515 33.93911 67.709953
-#> 5 2021-08-28 Afghanistan       country            AF         iso_3166_2    deaths_new     2 33.93911 67.709953
-#> 6 2021-08-27 Afghanistan       country            AF         iso_3166_2    deaths_new     8 33.93911 67.709953
+#>         date    location location_type location_code location_code_type  data_type value      lat      long
+#> 1 2021-10-04 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
+#> 2 2021-10-03 Afghanistan       country            AF         iso_3166_2 deaths_new     0 33.93911 67.709953
+#> 3 2020-11-09 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
+#> 4 2021-10-10 Afghanistan       country            AF         iso_3166_2 deaths_new     4 33.93911 67.709953
+#> 5 2021-10-06 Afghanistan       country            AF         iso_3166_2 deaths_new     6 33.93911 67.709953
+#> 6 2020-11-10 Afghanistan       country            AF         iso_3166_2 deaths_new    12 33.93911 67.709953
 ```
 
 ## Usage
@@ -204,33 +215,33 @@ summary_df <- coronavirus %>%
   arrange(-total_cases)
 
 summary_df %>% head(20) 
-#> # A tibble: 20 x 2
+#> # A tibble: 20 × 2
 #>    country        total_cases
 #>    <chr>                <int>
-#>  1 US                41993789
-#>  2 India             33417390
-#>  3 Brazil            21080219
-#>  4 United Kingdom     7406017
-#>  5 Russia             7130245
-#>  6 France             7029959
-#>  7 Turkey             6794670
-#>  8 Iran               5396013
-#>  9 Argentina          5237159
-#> 10 Colombia           4937596
-#> 11 Spain              4929546
-#> 12 Italy              4627699
-#> 13 Indonesia          4185144
-#> 14 Germany            4137062
-#> 15 Mexico             3552983
-#> 16 Poland             2896599
-#> 17 South Africa       2877063
-#> 18 Ukraine            2442344
-#> 19 Philippines        2324475
-#> 20 Peru               2164380
+#>  1 US                44683014
+#>  2 India             34020730
+#>  3 Brazil            21597949
+#>  4 United Kingdom     8311851
+#>  5 Russia             7742899
+#>  6 Turkey             7540193
+#>  7 France             7164924
+#>  8 Iran               5742083
+#>  9 Argentina          5268653
+#> 10 Spain              4980206
+#> 11 Colombia           4975656
+#> 12 Italy              4707087
+#> 13 Germany            4343591
+#> 14 Indonesia          4231046
+#> 15 Mexico             3732429
+#> 16 Poland             2928065
+#> 17 South Africa       2913880
+#> 18 Ukraine            2697176
+#> 19 Philippines        2690455
+#> 20 Malaysia           2361529
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2021-09-17):
+2021-10-13):
 
 ``` r
 library(tidyr)
@@ -243,50 +254,50 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 195 x 4
+#> # A tibble: 195 × 4
 #> # Groups:   country [195]
-#>    country            confirmed death recovered
-#>    <chr>                  <int> <int>     <int>
-#>  1 US                    207886  2635        NA
-#>  2 India                  35662   281        NA
-#>  3 United Kingdom         32566   180        NA
-#>  4 Turkey                 27692   237        NA
-#>  5 Philippines            20283   310        NA
-#>  6 Russia                 19589   771        NA
-#>  7 Iran                   17605   364        NA
-#>  8 Malaysia               17577   388        NA
-#>  9 Thailand               14555   171        NA
-#> 10 Vietnam                11521   212        NA
-#> 11 Brazil                 11202   327        NA
-#> 12 Germany                 9904    22        NA
-#> 13 Cuba                    8291    75        NA
-#> 14 France                  7756   107        NA
-#> 15 Serbia                  7572    34        NA
-#> 16 Ukraine                 6940   119        NA
-#> 17 Japan                   6164    69        NA
-#> 18 Canada                  5107    44        NA
-#> 19 Italy                   4544    66        NA
-#> 20 Romania                 4478    73        NA
-#> 21 Guatemala               4068    40        NA
-#> 22 Indonesia               3835   219        NA
-#> 23 Mexico                  3754   190        NA
-#> 24 South Africa            3648   173        NA
-#> 25 Iraq                    3559    56        NA
-#> 26 Spain                   3222    44        NA
-#> 27 Kazakhstan              3117     0        NA
-#> 28 Israel                  3040    29        NA
-#> 29 Costa Rica              2801    30        NA
-#> 30 Mongolia                2796     9        NA
-#> 31 Venezuela               2606    30        NA
-#> 32 Pakistan                2512    63        NA
-#> 33 Morocco                 2412    53        NA
-#> 34 Austria                 2364    12        NA
-#> 35 Belgium                 2341     3        NA
-#> 36 Argentina               2308   185        NA
-#> 37 Netherlands             2236    11        NA
-#> 38 Greece                  2231    40        NA
-#> 39 West Bank and Gaza      2219    19        NA
-#> 40 Burma                   2187    75        NA
+#>    country        confirmed death recovered
+#>    <chr>              <int> <int>     <int>
+#>  1 US                120321  3054        NA
+#>  2 United Kingdom     41669   136        NA
+#>  3 Turkey             31248   236        NA
+#>  4 Russia             27926   962        NA
+#>  5 India              18987   246        NA
+#>  6 Ukraine            17100   493        NA
+#>  7 Romania            15733   390        NA
+#>  8 Germany            12317    14        NA
+#>  9 Iran               12298   194        NA
+#> 10 Thailand           10064    82        NA
+#> 11 Malaysia            7950    68        NA
+#> 12 Brazil              7852   176        NA
+#> 13 Philippines         7083   173        NA
+#> 14 Serbia              6699    51        NA
+#> 15 Georgia             4837    26        NA
+#> 16 Netherlands         3772    13        NA
+#> 17 Belgium             3667    13        NA
+#> 18 Vietnam             3461   106        NA
+#> 19 Bulgaria            3327    98        NA
+#> 20 Singapore           3190     9        NA
+#> 21 Cameroon            3003    33        NA
+#> 22 Italy               2769    37        NA
+#> 23 Spain               2758    42        NA
+#> 24 Australia           2744    18        NA
+#> 25 Lithuania           2740    26        NA
+#> 26 Canada              2706    79        NA
+#> 27 Poland              2640    40        NA
+#> 28 Austria             2614    15        NA
+#> 29 Slovakia            2406    20        NA
+#> 30 Cuba                2354    28        NA
+#> 31 Greece              2312    31        NA
+#> 32 Latvia              2236    17        NA
+#> 33 Kazakhstan          2084    35        NA
+#> 34 Belarus             2060    17        NA
+#> 35 Moldova             2052    29        NA
+#> 36 Ireland             2051    26        NA
+#> 37 Croatia             2022    27        NA
+#> 38 Korea, South        1937    13        NA
+#> 39 Mongolia            1920    15        NA
+#> 40 Iraq                1766    35        NA
 #> # … with 155 more rows
 ```
 
