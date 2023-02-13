@@ -7,7 +7,7 @@
 
 [![R-CMD](https://github.com/RamiKrispin/coronavirus/workflows/build/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/main.yml)
 [![Data
-Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=master)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
+Pipeline](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml/badge.svg?branch=main)](https://github.com/RamiKrispin/coronavirus/actions/workflows/data_refresh.yml)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/coronavirus)](https://cran.r-project.org/package=coronavirus)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![License:
@@ -120,7 +120,7 @@ The package provides the following two datasets:
     -   `continent_code` - Continent code
 
 -   **covid19_vaccine** - a tidy (long) format of the the Johns Hopkins
-    [Centers for Civic Impact](https://civicimpact.jhu.edu/) global
+    [Centers for Civic Impact](https://govex.jhu.edu/) global
     vaccination
     [dataset](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data)
     by country. This dataset includes the following columns:
@@ -178,21 +178,25 @@ with the `refresh_coronavirus_jhu` function:
 
 ``` r
 covid19_df <- refresh_coronavirus_jhu()
+#> [4;32mLoading 2020 data[0m
+#> [4;32mLoading 2021 data[0m
+#> [4;32mLoading 2022 data[0m
+#> [4;32mLoading 2023 data[0m
 head(covid19_df)
 #>         date    location location_type location_code location_code_type
-#> 1 2022-04-21 Afghanistan       country            AF         iso_3166_2
-#> 2 2022-04-20 Afghanistan       country            AF         iso_3166_2
-#> 3 2021-12-26 Afghanistan       country            AF         iso_3166_2
-#> 4 2022-04-17 Afghanistan       country            AF         iso_3166_2
-#> 5 2022-04-23 Afghanistan       country            AF         iso_3166_2
-#> 6 2022-04-24 Afghanistan       country            AF         iso_3166_2
-#>    data_type value      lat     long
-#> 1 deaths_new     0 33.93911 67.70995
-#> 2 deaths_new     0 33.93911 67.70995
-#> 3 deaths_new     5 33.93911 67.70995
-#> 4 deaths_new     2 33.93911 67.70995
-#> 5 deaths_new     1 33.93911 67.70995
-#> 6 deaths_new     1 33.93911 67.70995
+#> 1 2022-08-01 Afghanistan       country            AF         iso_3166_2
+#> 2 2020-03-15 Afghanistan       country            AF         iso_3166_2
+#> 3 2022-08-02 Afghanistan       country            AF         iso_3166_2
+#> 4 2021-07-12 Afghanistan       country            AF         iso_3166_2
+#> 5 2020-03-16 Afghanistan       country            AF         iso_3166_2
+#> 6 2021-07-11 Afghanistan       country            AF         iso_3166_2
+#>       data_type value      lat     long
+#> 1 recovered_new     0 33.93911 67.70995
+#> 2 recovered_new     0 33.93911 67.70995
+#> 3 recovered_new     0 33.93911 67.70995
+#> 4     cases_new  1075 33.93911 67.70995
+#> 5 recovered_new     1 33.93911 67.70995
+#> 6     cases_new   801 33.93911 67.70995
 ```
 
 ## Usage
@@ -231,31 +235,31 @@ summary_df <- coronavirus %>%
 summary_df %>% head(20) 
 #> # A tibble: 20 × 2
 #>    country        total_cases
-#>    <chr>                <int>
-#>  1 US                86636306
-#>  2 India             43344958
-#>  3 Brazil            31890733
-#>  4 France            30555038
-#>  5 Germany           27573585
-#>  6 United Kingdom    22751393
-#>  7 Korea, South      18305783
-#>  8 Russia            18137759
-#>  9 Italy             18014202
-#> 10 Turkey            15085742
-#> 11 Spain             12613634
-#> 12 Vietnam           10739855
-#> 13 Argentina          9341492
-#> 14 Japan              9178003
-#> 15 Netherlands        8247488
-#> 16 Australia          7919844
-#> 17 Iran               7235440
-#> 18 Colombia           6131657
-#> 19 Indonesia          6072918
-#> 20 Poland             6011984
+#>    <chr>                <dbl>
+#>  1 US               102830381
+#>  2 India             44685087
+#>  3 France            39760676
+#>  4 Germany           37893892
+#>  5 Brazil            36905201
+#>  6 Japan             32901767
+#>  7 Korea, South      30325483
+#>  8 Italy             25488166
+#>  9 United Kingdom    24549097
+#> 10 Russia            21725309
+#> 11 Turkey            17042722
+#> 12 Spain             13740531
+#> 13 Vietnam           11526627
+#> 14 Australia         11327900
+#> 15 Argentina         10040329
+#> 16 Taiwan*            9754006
+#> 17 Netherlands        8697711
+#> 18 Iran               7565253
+#> 19 Mexico             7400848
+#> 20 Indonesia          6732179
 ```
 
 Summary of new cases during the past 24 hours by country and type (as of
-2022-06-22):
+2023-02-09):
 
 ``` r
 library(tidyr)
@@ -268,21 +272,21 @@ coronavirus %>%
   pivot_wider(names_from = type,
               values_from = total_cases) %>%
   arrange(-confirmed)
-#> # A tibble: 199 × 4
-#> # Groups:   country [199]
+#> # A tibble: 201 × 4
+#> # Groups:   country [201]
 #>    country        confirmed death recovery
-#>    <chr>              <int> <int>    <int>
-#>  1 US                184074   860        0
-#>  2 Germany           119360    98        0
-#>  3 France             78123    66        0
-#>  4 Brazil             71906   140        0
-#>  5 Italy              54873    50        0
-#>  6 Taiwan*            52218   171        0
-#>  7 United Kingdom     33406    77        0
-#>  8 Australia          32034    52        0
-#>  9 Japan              17263    15        0
-#> 10 Portugal           15372    21        0
-#> # … with 189 more rows
+#>    <chr>              <dbl> <dbl>    <dbl>
+#>  1 US                 79947   942        0
+#>  2 Japan              32969   223        0
+#>  3 United Kingdom     22231  -334        0
+#>  4 Taiwan*            20912    45        0
+#>  5 Australia          14996   235        0
+#>  6 Germany            14178   134        0
+#>  7 Korea, South       13504    17        0
+#>  8 Russia             12208    40        0
+#>  9 Mexico              9946    97        0
+#> 10 Brazil              7518    37        0
+#> # … with 191 more rows
 ```
 
 Plotting daily confirmed and death cases in Brazil:
@@ -347,54 +351,147 @@ conf_df <- coronavirus %>%
 data(covid19_vaccine)
 
 head(covid19_vaccine)
-#>   country_region       date doses_admin people_partially_vaccinated
-#> 1         Canada 2020-12-14           5                           0
-#> 2          World 2020-12-14           5                           0
-#> 3         Canada 2020-12-15         723                           0
-#> 4          China 2020-12-15     1500000                           0
-#> 5         Russia 2020-12-15       28500                       28500
-#> 6          World 2020-12-15     1529223                       28500
-#>   people_fully_vaccinated report_date_string uid province_state iso2 iso3 code3
-#> 1                       0         2020-12-14 124           <NA>   CA  CAN   124
-#> 2                       0         2020-12-14  NA           <NA> <NA> <NA>    NA
-#> 3                       0         2020-12-15 124           <NA>   CA  CAN   124
-#> 4                       0         2020-12-15 156           <NA>   CN  CHN   156
-#> 5                       0         2020-12-15 643           <NA>   RU  RUS   643
-#> 6                       0         2020-12-15  NA           <NA> <NA> <NA>    NA
-#>   fips      lat     long combined_key population continent_name continent_code
-#> 1 <NA> 60.00000 -95.0000       Canada   37855702  North America             NA
-#> 2 <NA>       NA       NA         <NA>         NA           <NA>           <NA>
-#> 3 <NA> 60.00000 -95.0000       Canada   37855702  North America             NA
-#> 4 <NA> 35.86170 104.1954        China 1404676330           Asia             AS
-#> 5 <NA> 61.52401 105.3188       Russia  145934460         Europe             EU
-#> 6 <NA>       NA       NA         <NA>         NA           <NA>           <NA>
+#>         date country_region continent_name continent_code combined_key
+#> 1 2020-12-29        Austria         Europe             EU      Austria
+#> 2 2020-12-29        Bahrain           Asia             AS      Bahrain
+#> 3 2020-12-29        Belarus         Europe             EU      Belarus
+#> 4 2020-12-29        Belgium         Europe             EU      Belgium
+#> 5 2020-12-29         Canada  North America             NA       Canada
+#> 6 2020-12-29          Chile  South America             SA        Chile
+#>   doses_admin people_at_least_one_dose population uid iso2 iso3 code3 fips
+#> 1        2123                     2123    9006400  40   AT  AUT    40 <NA>
+#> 2       55014                    55014    1701583  48   BH  BHR    48 <NA>
+#> 3           0                        0    9449321 112   BY  BLR   112 <NA>
+#> 4         340                      340   11589616  56   BE  BEL    56 <NA>
+#> 5       59079                    59078   37855702 124   CA  CAN   124 <NA>
+#> 6          NA                       NA   19116209 152   CL  CHL   152 <NA>
+#>        lat       long
+#> 1  47.5162  14.550100
+#> 2  26.0275  50.550000
+#> 3  53.7098  27.953400
+#> 4  50.8333   4.469936
+#> 5  60.0000 -95.000000
+#> 6 -35.6751 -71.543000
 ```
 
-Plot the top 20 vaccinated countries:
+Taking a snapshot of the data from the most recent date available and
+calculate the ratio between total doses admin and the population size:
 
 ``` r
-covid19_vaccine %>% 
-  filter(date == max(date),
-         !is.na(population)) %>% 
-  mutate(fully_vaccinated_ratio = people_fully_vaccinated / population) %>%
-  arrange(- fully_vaccinated_ratio) %>%
-  slice_head(n = 20) %>%
-  arrange(fully_vaccinated_ratio) %>%
-  mutate(country = factor(country_region, levels = country_region)) %>%
-  plot_ly(y = ~ country,
-          x = ~ round(100 * fully_vaccinated_ratio, 2),
-          text = ~ paste(round(100 * fully_vaccinated_ratio, 1), "%"),
-          textposition = 'auto',
-          orientation = "h",
-          type = "bar") %>%
-  layout(title = "Percentage of Fully Vaccineted Population - Top 20 Countries",
-         yaxis = list(title = ""),
-         xaxis = list(title = "Source: Johns Hopkins Centers for Civic Impact",
-                      ticksuffix = "%"))
+df_summary <- covid19_vaccine |>
+  filter(date == max(date)) |>
+  select(date, country_region, doses_admin, total = people_at_least_one_dose, population, continent_name) |>
+  mutate(doses_pop_ratio = doses_admin / population,
+         total_pop_ratio = total / population) |>
+  filter(country_region != "World", 
+         !is.na(population),
+         !is.na(total)) |>
+  arrange(- total)
+
+head(df_summary, 10)
+#>          date country_region doses_admin      total population continent_name
+#> 1  2023-02-10          China          NA 1310267000 1404676330           Asia
+#> 2  2023-02-10          India          NA 1027356828 1380004385           Asia
+#> 3  2023-02-10             US   670306507  269208743  329466283  North America
+#> 4  2023-02-10      Indonesia   444303130  203657535  273523621           Asia
+#> 5  2023-02-10         Brazil   500646783  189097459  212559409  South America
+#> 6  2023-02-10       Pakistan   333085477  162206190  220892331           Asia
+#> 7  2023-02-10     Bangladesh   353318909  151054434  164689383           Asia
+#> 8  2023-02-10          Japan   380451598  104642871  126476458           Asia
+#> 9  2023-02-10         Mexico   225063079   99071001  127792286  North America
+#> 10 2023-02-10        Vietnam   265668329   90454197   97338583           Asia
+#>    doses_pop_ratio total_pop_ratio
+#> 1               NA       0.9327893
+#> 2               NA       0.7444591
+#> 3         2.034522       0.8171056
+#> 4         1.624368       0.7445702
+#> 5         2.355326       0.8896217
+#> 6         1.507909       0.7343224
+#> 7         2.145365       0.9172081
+#> 8         3.008082       0.8273703
+#> 9         1.761163       0.7752502
+#> 10        2.729322       0.9292738
+```
+
+Plot of the total doses and population ratio by country:
+
+``` r
+# Setting the diagonal lines range
+line_start <- 10000
+line_end <- 1500 * 10 ^ 6
+
+# Filter the data
+d <- df_summary |> 
+  filter(country_region != "World", 
+         !is.na(population),
+         !is.na(total)) 
+
+
+# Replot it
+p3 <- plot_ly() |>
+  add_markers(x = d$population,
+              y = d$total,
+              text = ~ paste("Country: ", d$country_region, "<br>",
+                             "Population: ", d$population, "<br>",
+                             "Total Doses: ", d$total, "<br>",
+                             "Ratio: ", round(d$total_pop_ratio, 2), 
+                             sep = ""),
+              color = d$continent_name,
+              type = "scatter",
+              mode = "markers") |>
+  add_lines(x = c(line_start, line_end),
+            y = c(line_start, line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  add_lines(x = c(line_start, line_end),
+            y = c(0.5 * line_start, 0.5 * line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  
+  add_lines(x = c(line_start, line_end),
+            y = c(0.25 * line_start, 0.25 * line_end),
+            showlegend = FALSE,
+            line = list(color = "gray", width = 0.5)) |>
+  add_annotations(text = "1:1",
+                  x = log10(line_end * 1.25),
+                  y = log10(line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "1:2",
+                  x = log10(line_end * 1.25),
+                  y = log10(0.5 * line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "1:4",
+                  x = log10(line_end * 1.25),
+                  y = log10(0.25 * line_end * 1.25),
+                  showarrow = FALSE,
+                  textangle = -25,
+                  font = list(size = 8),
+                  xref = "x",
+                  yref = "y") |>
+  add_annotations(text = "Source: Johns Hopkins University - Centers for Civic Impact",
+                  showarrow = FALSE,
+                  xref = "paper",
+                  yref = "paper",
+                  x = -0.05, y = - 0.33) |>
+  layout(title = "Covid19 Vaccine - Total Doses vs. Population Ratio (Log Scale)",
+         margin = list(l = 50, r = 50, b = 90, t = 70),
+         yaxis = list(title = "Number of Doses",
+                      type = "log"),
+         xaxis = list(title = "Population Size",
+                      type = "log"),
+         legend = list(x = 0.75, y = 0.05))
 
 ```
 
-<img src="man/figures/top20_countries.svg" width="100%" />
+<img src="man/figures/country_summary.svg" width="100%" />
 
 ## Dashboard
 
@@ -436,14 +533,14 @@ resources:
 -   Australia Government Department of
     Health:<https://www.health.gov.au/health-alerts/covid-19> <br>
 -   European Centre for Disease Prevention and Control (ECDC):
-    <https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases>
+    <https://www.ecdc.europa.eu/en/covid-19/country-overviews>
 -   Ministry of Health Singapore (MOH):
     <https://www.moh.gov.sg/covid-19>
 -   Italy Ministry of Health:
     <https://www.salute.gov.it/nuovocoronavirus>
 -   1Point3Arces: <https://coronavirus.1point3acres.com/en>
 -   WorldoMeters: <https://www.worldometers.info/coronavirus/>
--   COVID Tracking Project: <https://covidtracking.com/data>. (US
+-   COVID Tracking Project: <https://covidtracking.com/data/>. (US
     Testing and Hospitalization Data. We use the maximum reported value
     from “Currently” and “Cumulative” Hospitalized for our
     hospitalization number reported for each state.)
@@ -455,13 +552,13 @@ resources:
 -   New York State Department of Health:
     <https://health.data.ny.gov/Health/New-York-State-Statewide-COVID-19-Testing/xdss-u53e/data>
 -   NYC Department of Health and Mental Hygiene:
-    <https://www1.nyc.gov/site/doh/covid/covid-19-data.page> and
+    <https://www.nyc.gov/site/doh/covid/covid-19-data.page> and
     <https://github.com/nychealth/coronavirus-data>
 -   Florida Department of Health Dashboard:
     <https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/arcgis/rest/services/Florida_COVID19_Cases/FeatureServer/0>
     and
-    <https://fdoh.maps.arcgis.com/apps/opsdashboard/index.html#/8d0de33f260d444c852a615dc7837c86>
+    <https://fdoh.maps.arcgis.com/apps/dashboards/index.html#/8d0de33f260d444c852a615dc7837c86>
 -   Palestine (West Bank and Gaza): <https://corona.ps/details>
 -   Israel:
     <https://govextra.gov.il/ministry-of-health/corona/corona-virus/>
--   Colorado: <https://covid19.colorado.gov/data>)
+-   Colorado: <https://covid19.colorado.gov/>

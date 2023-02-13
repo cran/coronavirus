@@ -1,6 +1,6 @@
 Package: coronavirus
 Title: The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset
-Version: 0.3.32
+Version: 0.4.0
 Authors@R: c(person(given = "Rami", 
                     family ="Krispin", 
                     email = "rami.krispin@gmail.com",
@@ -24,8 +24,8 @@ BugReports: https://github.com/RamiKrispin/coronavirus/issues
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-06-24 12:33:59 UTC; ramikrispin
+Packaged: 2023-02-13 04:12:03 UTC; ramikrispin
 Author: Rami Krispin [aut, cre],
   Jarrett Byrnes [aut] (<https://orcid.org/0000-0002-9791-9472>)
 Repository: CRAN
-Date/Publication: 2022-06-24 16:00:05 UTC
+Date/Publication: 2023-02-13 10:10:06 UTC

@@ -1,3 +1,17 @@
+# coronavirus 0.4.0
+
+Major changes:
+- Updating the `covid19_vaccine` dataset with the changes in the raw data
+
+Minor changes:
+- Updating the data pipeline:
+  - Split the CSV file by year to reduce the files size
+  - Convert the cases and vaccine data pipelines to quarto docs
+  - Updated the `refresh_coronavirus_jhu` function with the changes in the CSV files
+- Updated the branch naming
+- Updated the docker - add quarto settings
+- Update the package vignettes 
+
 # coronavirus 0.3.32
 
 - Fixed issue with the `refresh_coronavirus_jhu` - misclassification of the recovery cases as death cases
