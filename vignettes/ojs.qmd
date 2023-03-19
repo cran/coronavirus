@@ -1,0 +1,73 @@
+---
+title: "Observable + R"
+execute:
+  echo: false
+---
+
+```{r}
+#| warning: false
+#| output: false
+library(coronavirus)
+
+df <- refresh_coronavirus_jhu()
+
+ojs_define(raw = df)
+
+```
+
+
+```{ojs}
+df = transpose(raw)
+
+// Source: https://observablehq.com/@harrystevens/unique-values-from-an-array-of-objects
+uniqueWhile = (arr, fn) => {
+  let out = [],
+      i = -1,
+      n = arr.length;
+  
+  while (++i < n){
+    const d = fn ? fn(arr[i], i, arr) : arr[i];
+    if (!out.includes(d)) out.push(d);
+  }
+  
+  return out;
+}
+
+country_filter = df.filter(function(field) {
+  return field.location_type ==  "country";
+}).sort(function(a,b){
+  return new Date(a.date) - new Date(b.date);
+});
+
+country_list = uniqueWhile(country_filter, d => d.location);
+
+
+viewof selectedCountry = Inputs.select(country_list.sort(), {label: "Country:"});
+
+viewof selectedCase = Inputs.select(["Confirmed", "Death"], {label: "Case Type:"});
+
+
+
+country_df = df.filter(function(field) {
+  return field.location_type = "country" &&field.location == selectedCountry && field.data_type == "cases_new";
+}).sort(function(a,b){
+  return new Date(a.date) - new Date(b.date);
+});
+
+plot = Plot.plot({
+  x: {
+    tickSize: 0,
+    tickPadding: 10,
+    label: null
+  },
+  y: {
+    grid: true,
+    tickSize: 0,
+    tickPadding: 3,
+    label: selectedCase
+  },
+  marks: [
+    Plot.line(country_df, {x: "date", y: "value", strokeWidth: 1, stroke: "#457b9d"})
+  ]
+});
+```
